@@ -41,7 +41,7 @@ int	main(void)
 {
 	char *line;
 	
-	int fd = open ("mi_fichero", O_RDONLY);
+	int fd = open ("texto", O_RDONLY);
 	line = "";
 	while (line != NULL)
 		line = get_next_line(fd);
