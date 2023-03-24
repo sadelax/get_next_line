@@ -12,37 +12,67 @@
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*ft_get_stash(int fd, char *stash)
 {
-	char *buf;
-	char *line_in_buffer;
-	int file;
+	char	*buf;
+	int		nr_bytes;
 
-	buf = malloc((sizeof(char) * BUFFER_SIZE) + 1);
+	if (!stash)
+		stash = malloc(sizeof(char) * 1);
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
-		return NULL;
-	file = 1;
-	while (!ft_strchr(buf, '\n') && file != 0)
+		return (NULL);
+	nr_bytes = 1;
+	while (!ft_strchr(buf, '\n') && nr_bytes != 0)
 	{
-		file = read(fd, buf, BUFFER_SIZE);
-		if (file == -1)
+		nr_bytes = read(fd, buf, BUFFER_SIZE);
+		if (nr_bytes == -1)
 		{
 			free(buf);
-			return NULL;
+			free(stash);
+			return (NULL);
 		}
-		buf[file] = '\0';
-		line_in_buffer = ft_strjoin(line_in_buffer, buf);
+		buf[nr_bytes] = '\0';
+		stash = ft_strjoin(stash, buf);
 	}
 	free(buf);
-	return(line_in_buffer);
+	return (stash);
+}
+
+char	*ft_get_line(char *stash)
+{
+	char	*line;
+	int		i;
+
+	if (!stash[0])
+		return NULL;
+	i = 0;
+	while (stash[i] != '\0' && stash[i] != '\n')
+		i++;
+	line = ft_substr(stash, 0, i);
+	if (stash[i] == '\n')
+		line[i] = stash[i];
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*stash;
+	char		*line;
+
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	stash = ft_get_stash(fd, stash);
+	if (!stash)
+		return NULL;
+	line = ft_get_line(stash);
+	// TO-DO
 }
 
 int	main(void)
 {
-	char *line;
-	
-	int fd = open ("texto", O_RDONLY);
-	line = "";
+	char *line = "";
+	int fd = open("texto", O_RDONLY);
 	while (line != NULL)
 		line = get_next_line(fd);
 		printf("%s", line);

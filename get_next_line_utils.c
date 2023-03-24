@@ -16,27 +16,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*dst;
 	size_t	i;
-	int	len;
+	size_t	len_s1;
+	size_t	len_s2;
 
 	if (!s1 || !s2)
 		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	dst = malloc(sizeof(char) * len + 1);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	dst = malloc(sizeof(char) * (len_s1 + len_s2) + 1);
 	if (!dst)
 		return (NULL);
-	i = 0;
-	while (ft_strlen(s1) > i)
-	{
-		dst[i] = s1[i];
-		i++;
-	}
-	while (i < (ft_strlen(s1) + ft_strlen(s2)))
-	{
-		dst[i] = s2[i - ft_strlen(s1)];
-		i++;
-	}
-	dst[i] = '\0';
-	free(dst);
+	ft_memcpy(dst, s1, len_s1);
+	ft_memcpy(dst + len_s1, s2, len_s2);
+	dst[len_s1 + len_s2] = '\0';
+	free(s1);
 	return (dst);
 }
 
@@ -55,13 +48,31 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] && s[i] != (char)c)
+		i++;
+	if (s[i] == (char)c)
+		return ((char *)s + i);
+	else if ((char)c == '\0')
+		return ((char *)s + i);
+	else
+		return NULL;
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned char		*dst_p;
+	const unsigned char	*src_p;
+	size_t				i;
+
+	dst_p = (char *)dst;
+	src_p = (const char *)src;
+	i = 0;
+	if (!dst && !src)
+		return NULL;
+	while (i < n)
 	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
+		dst_p[i] = src_p[i];
 		i++;
 	}
-	if ((char)c == 0)
-		return ((char *)s + i);
-	return (0);
+	return (dst);
 }
