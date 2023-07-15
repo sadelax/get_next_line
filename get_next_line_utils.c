@@ -76,3 +76,22 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*ptr;
+	size_t	i;
+
+	if (count == SIZE_MAX || size == SIZE_MAX)
+		return (NULL);
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while ((count * size) > i)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return (ptr);
+}
