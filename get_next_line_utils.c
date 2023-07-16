@@ -6,13 +6,32 @@
 /*   By: sade-la- <sade-la-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:58:28 by sade-la-          #+#    #+#             */
-/*   Updated: 2023/07/15 15:30:07 by sade-la-         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:55:49 by sade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memcpy(char *dst, char *src, size_t n)
+{
+	char	*dst_p;
+	char	*src_p;
+	size_t	i;
+
+	dst_p = dst;
+	src_p = src;
+	i = 0;
+	if (!dst && !src)
+		return NULL;
+	while (i < n)
+	{
+		dst_p[i] = src_p[i];
+		i++;
+	}
+	return (dst);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dst;
 	size_t	i;
@@ -43,38 +62,19 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != (char)c)
+	while (s[i] && s[i] != c)
 		i++;
-	if (s[i] == (char)c)
-		return ((char *)s + i);
-	else if ((char)c == '\0')
-		return ((char *)s + i);
+	if (s[i] == c)
+		return (s + i);
+	else if (c == '\0')
+		return (s + i);
 	else
 		return NULL;
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	unsigned char		*dst_p;
-	const unsigned char	*src_p;
-	size_t				i;
-
-	dst_p = (char *)dst;
-	src_p = (const char *)src;
-	i = 0;
-	if (!dst && !src)
-		return NULL;
-	while (i < n)
-	{
-		dst_p[i] = src_p[i];
-		i++;
-	}
-	return (dst);
 }
 
 void	*ft_calloc(size_t count, size_t size)

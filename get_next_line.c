@@ -6,7 +6,7 @@
 /*   By: sade-la- <sade-la-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 15:13:35 by sade-la-          #+#    #+#             */
-/*   Updated: 2023/07/15 15:13:43 by sade-la-         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:57:37 by sade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*get_next_line(int fd){
 	if(!stash){
 		stash = ft_calloc(sizeof(char), BUFFER_SIZE);
 	}
+
+	return line;
 }
 
 int	main(void)

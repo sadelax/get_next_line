@@ -6,7 +6,7 @@
 /*   By: sade-la- <sade-la-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:58:23 by sade-la-          #+#    #+#             */
-/*   Updated: 2023/07/15 15:13:50 by sade-la-         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:52:51 by sade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 
 # define BUFFER_SIZE 42
 
-char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
+void	*ft_memcpy(char *dst, char *src, size_t n);
 
 #endif
